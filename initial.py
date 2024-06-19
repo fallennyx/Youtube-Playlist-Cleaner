@@ -131,20 +131,19 @@ def add_video_to_playlist_with_retry(youtube, playlist_id, video_id, max_retries
                 raise  # Raise the exception if it's not a conflict error
     print(f'Failed to add video after {max_retries} retries.')
 
-
-def main():
+def final(id):
     youtube = get_authenticated_service()
-    original_playlist_id = 'PL3-sRm8xAzY9Qd1BoHHYFXRMUQlB4BZNt'  # Replace with your original playlist ID
+    original_playlist_id = id  # Replace with your original playlist ID
     new_playlist_description = 'A playlist of clean versions of the original videos.'
 
-#get og playlist title
+    #get og playlist title
     playlisttitle=get_playlist_title(youtube,original_playlist_id)
     new_playlist_title = 'Clean Version of '+ playlisttitle
     new_playlist_description = 'A playlist of clean versions of the'+ new_playlist_title + 'playlist.'
 
 
 
-# Step 1: Retrieve original playlist items
+    # Step 1: Retrieve original playlist items
     playlist_items = get_playlist_items(youtube, original_playlist_id)
 
     # Step 2: Create a new playlist
@@ -171,5 +170,5 @@ def main():
             print(f'Added "{search_query}" to the new playlist.')
 
 if __name__ == '__main__':
-    main()
+    final(id)
 
