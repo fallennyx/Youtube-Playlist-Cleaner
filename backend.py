@@ -49,17 +49,7 @@ with open('client_secrets.json', 'w') as outfile:
 def get_authenticated_service():
     flow = google_auth_oauthlib.flow.InstalledAppFlow.from_client_secrets_file(
         CLIENT_SECRETS_FILE, SCOPES)
-    flow.redirect_uri = 'urn:ietf:wg:oauth:2.0:oob'
-    authorization_url, state = flow.authorization_url(access_type='offline', include_granted_scopes='true')
-
-    # Print the authorization URL
-    print(f'Please go to this URL and authorize access: {authorization_url}')
-
-    # Prompt the user to enter the authorization code
-    code = input('Enter the authorization code: ')
-    flow.fetch_token(code=code)
-
-    credentials = flow.credentials
+    credentials = flow.run_local_server(port=63846)
     return googleapiclient.discovery.build(API_SERVICE_NAME, API_VERSION, credentials=credentials)
 
 def get_playlist_title(youtube,playlist_id):
