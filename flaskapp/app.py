@@ -1,6 +1,8 @@
-from flask import Flask, render_template, request, redirect, url_for
+import sys
 
-import initial
+from flask import Flask, render_template, request, redirect, url_for
+print(sys.path)
+import backend
 
 app = Flask(__name__)
 
@@ -21,7 +23,7 @@ def process_form():
     else:
         return render_template('error.html')
     if video_id:
-        initial.final(video_id)
+        backend.final(video_id)
         return redirect(url_for('success'))
     else:
         return render_template('error.html')
