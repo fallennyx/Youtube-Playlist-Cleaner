@@ -1,18 +1,21 @@
 import sys
 
 from flask import Flask, render_template, request, redirect, url_for
+
 print(sys.path)
 import backend
 
 app = Flask(__name__)
 
+
 @app.route('/')
 def index():
     return render_template('index.html')
 
+
 @app.route('/initial.py', methods=['POST'])
 def process_form():
-    video_id =  request.form['youtube_link']
+    video_id = request.form['youtube_link']
     if 'list=' in video_id:
         start_index = video_id.find('list=') + len('list=')
         end_index = video_id.find('&', start_index)
@@ -32,5 +35,7 @@ def process_form():
 @app.route('/success')
 def success():
     return redirect("https://www.youtube.com/feed/playlists")
+
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080, debug=True)
