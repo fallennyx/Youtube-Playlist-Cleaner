@@ -1,22 +1,50 @@
 import os
 import random
 import time
+import json
+
 
 import google.auth.transport.requests
 import google.oauth2.credentials
 import google_auth_oauthlib.flow
 import googleapiclient.discovery
 import googleapiclient.errors
+from dotenv import load_dotenv
+load_dotenv()
+
 
 # The CLIENT_SECRETS_FILE variable specifies the name of a file that contains
 # the OAuth 2.0 information for this application, including its client_id and
 # client_secret.
 CLIENT_SECRETS_FILE = "client_secrets.json"
-
+client_id = os.environ.get('CLIENT_ID')
+client_secret = os.environ.get('CLIENT_SECRET')
 # This OAuth 2.0 access scope allows for full access to the authenticated user's account.
 SCOPES = ["https://www.googleapis.com/auth/youtube"]
 API_SERVICE_NAME = "youtube"
 API_VERSION = "v3"
+
+
+# Create a client secrets dictionary
+credentials = {
+    "web": {
+        "client_id": os.getenv('CLIENT_ID'),
+        "project_id": os.getenv('PROJECT_ID'),
+        "auth_uri":  os.getenv('AUTH_URI'),
+        "token_uri":  os.getenv('TOKEN_URI'),
+        "auth_provider_x509_cert_url":  os.getenv('AUTH_PROVIDER_X509_CERT_URL'),
+        "client_secret": os.getenv('CLIENT_SECRET')
+    }
+}
+
+
+# Write the client secrets to a JSON file
+with open('client_secrets.json', 'w') as outfile:
+    json.dump(credentials, outfile)
+
+
+
+
 
 def get_authenticated_service():
     flow = google_auth_oauthlib.flow.InstalledAppFlow.from_client_secrets_file(

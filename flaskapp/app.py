@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 
 import initial
-import flask # Import your backend Python code
 
 app = Flask(__name__)
 
