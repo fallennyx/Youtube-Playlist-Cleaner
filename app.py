@@ -8,6 +8,13 @@ import backend
 
 app = Flask(__name__)
 
+chrome_path = "/opt/render/project/.render/chrome/opt/google/chrome/google-chrome"
+
+# Set Chrome as the default browser for webbrowser module
+os.environ["WEBBROWSER"] = chrome_path
+
+
+
 
 @app.route('/')
 def index():

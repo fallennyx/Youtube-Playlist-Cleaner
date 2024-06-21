@@ -16,7 +16,18 @@ else
   echo "...Using Chrome from cache"
 fi
 
-# be sure to add Chromes location to the PATH as part of your Start Command
-# export PATH="${PATH}:/opt/render/project/.render/chrome/opt/google/chrome"
+# Install Python and dependencies
+echo "...Installing Python and dependencies"
+apt-get update && apt-get install -y python3 python3-pip
+pip3 install -r requirements.txt
 
-# add your own build commands...
+# Set up Flask environment
+export FLASK_APP=app.py
+export FLASK_ENV=production
+
+# Run Flask migrations or other setup commands (if needed)
+# flask db upgrade
+
+# Start your Flask app
+echo "...Starting Flask app"
+flask run --host=0.0.0.0 --port=$PORT
